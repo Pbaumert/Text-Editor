@@ -35,7 +35,7 @@ module.exports = () => {
         background_color: '#225ca3',
         theme_color: '#225ca3',
         start_url: './',
-        publicPath: './',
+        publicPath: './client',
         icons: [
           {
             src: path.resolve('client/src/images/logo.png'),
