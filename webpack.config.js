@@ -5,24 +5,27 @@ const { InjectManifest } = require('workbox-webpack-plugin');
 
 module.exports = () => {
   return {
-    mode: 'development',
+    mode: 'development', // Change to 'production' for production build
     entry: {
-      main: './client/src/js/index.js',
-      install: './client/src/js/install.js'
+      main: path.resolve(__dirname, 'client/src/js/index.js'),  // Absolute path to main JS file
+      install: path.resolve(__dirname, 'client/src/js/install.js')  // Absolute path to install.js
     },
     output: {
       filename: '[name].bundle.js',
-      path: path.resolve(__dirname, 'dist'),
-      publicPath: './',
+      path: path.resolve(__dirname, 'dist'), // Output path
+      publicPath: './', // Public path to serve the assets
+    },
+    resolve: {
+      extensions: ['.js', '.json'], // Auto-resolve these extensions
     },
     plugins: [
       new HtmlWebpackPlugin({
-        template: './client/src/index.html',
+        template: path.resolve(__dirname, 'client/src/index.html'), // Absolute path to HTML file
         title: 'JATE',
       }),
       new InjectManifest({
-        swSrc: './serviceworker.js',
-        swDest: 'src-sw.js',
+        swSrc: path.resolve(__dirname, 'serviceworker.js'), // Correct service worker file path
+        swDest: 'serviceworker.js', // Destination for service worker
       }),
       new WebpackPwaManifest({
         fingerprints: false,
@@ -36,34 +39,27 @@ module.exports = () => {
         publicPath: './',
         icons: [
           {
-            src: path.resolve(__dirname, 'client/src/images/logo.png'),
+            src: path.resolve(__dirname, 'logo.png'), // Moved logo.png to root
             sizes: [96, 128, 192, 256, 384, 512],
             destination: path.join('assets', 'icons'),
           },
         ],
       }),
+      
     ],
-
-    resolve: {
-      alias: {
-        src: path.resolve(__dirname, 'client/src'), 
-      },
-      extensions: ['.js', '.json']
-    },
-    
     module: {
       rules: [
         {
           test: /\.css$/i,
-          use: ['style-loader', 'css-loader'],
+          use: ['style-loader', 'css-loader'], // CSS loader
         },
         {
-          test: /\.m?js$/,
-          exclude: /node_modules/,
+          test: /\.js$/,
+          exclude: /node_modules/, // Exclude node_modules
           use: {
             loader: 'babel-loader',
             options: {
-              presets: ['@babel/preset-env'],
+              presets: ['@babel/preset-env'], // Use Babel preset for modern JS
             },
           },
         },
