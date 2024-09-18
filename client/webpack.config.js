@@ -22,7 +22,7 @@ module.exports = () => {
       }),
       // Inject the custom service worker
       new InjectManifest({
-        swSrc: './src-sw.js',  // Service worker location
+        swSrc: './client/src-sw.js',  // Service worker location
         swDest: 'src-sw.js',  // Output the service worker in the dist folder
       }),
       // Webpack PWA manifest configuration
