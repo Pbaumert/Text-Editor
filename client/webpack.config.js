@@ -5,30 +5,30 @@ const { InjectManifest } = require('workbox-webpack-plugin');
 
 module.exports = () => {
   return {
-    mode: 'development', // Development mode
+    mode: 'development',
     entry: {
-      main: '.client/src/js/index.js',    // Main entry point
-      install: '.client/src/js/install.js' // For handling PWA install logic
+      main: './client/src/js/index.js',    // Updated to point to client/src/js/index.js
+      install: './client/src/js/install.js' // Updated to point to client/src/js/install.js
     },
     output: {
-      filename: '[name].bundle.js', // Dynamically name bundles
-      path: path.resolve(__dirname, 'dist'), // Output directory
+      filename: '[name].bundle.js',
+      path: path.resolve(__dirname, 'dist'), // Outputs into /dist
     },
     plugins: [
-      // Generates the main HTML file
+      // Generate the HTML file
       new HtmlWebpackPlugin({
-        template: './client/src/index.html',
-        title: 'JATE', // Customize the title
+        template: './client/src/index.html',  // Updated to point to client/src/index.html
+        title: 'JATE',
       }),
-      // Injects the custom service worker
+      // Inject the custom service worker
       new InjectManifest({
-        swSrc: './src-sw.js', // Path to service worker source file
-        swDest: 'src-sw.js',  // Destination in the dist folder
+        swSrc: './src-sw.js',  // Service worker location
+        swDest: 'src-sw.js',  // Output the service worker in the dist folder
       }),
-      // PWA Manifest
+      // Webpack PWA manifest configuration
       new WebpackPwaManifest({
-        fingerprints: false, // Avoids hashing the file names
-        inject: true, // Injects the manifest link into the HTML
+        fingerprints: false,
+        inject: true,
         name: 'Just Another Text Editor',
         short_name: 'JATE',
         description: 'A simple text editor that works offline!',
@@ -38,30 +38,28 @@ module.exports = () => {
         publicPath: './',
         icons: [
           {
-            src: path.resolve('src/images/logo.png'),
-            sizes: [96, 128, 192, 256, 384, 512], // Multiple icon sizes
-            destination: path.join('assets', 'icons'), // Where icons will be stored
+            src: path.resolve('client/src/images/logo.png'),
+            sizes: [96, 128, 192, 256, 384, 512],
+            destination: path.join('assets', 'icons'),
           },
         ],
       }),
     ],
-
-    // Define module rules
     module: {
       rules: [
-        // CSS loader
+        // CSS loader for styles
         {
           test: /\.css$/i,
           use: ['style-loader', 'css-loader'],
         },
-        // Babel loader for transpiling JavaScript
+        // Babel loader for JavaScript files
         {
           test: /\.m?js$/,
           exclude: /node_modules/,
           use: {
             loader: 'babel-loader',
             options: {
-              presets: ['@babel/preset-env'], // Use Babel preset-env
+              presets: ['@babel/preset-env'],
             },
           },
         },
