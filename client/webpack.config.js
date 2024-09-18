@@ -17,7 +17,7 @@ module.exports = () => {
     plugins: [
       // Generates the main HTML file
       new HtmlWebpackPlugin({
-        template: './client/index.html',
+        template: './client/src/index.html',
         title: 'JATE', // Customize the title
       }),
       // Injects the custom service worker
