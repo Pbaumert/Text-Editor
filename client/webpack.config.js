@@ -7,25 +7,22 @@ module.exports = () => {
   return {
     mode: 'development',
     entry: {
-      main: './client/src/js/index.js',    // Updated to point to client/src/js/index.js
-      install: './client/src/js/install.js' // Updated to point to client/src/js/install.js
+      main: './client/src/js/index.js',   // Check if this path is correct
+      install: './client/src/js/install.js' // Check if this path is correct
     },
     output: {
       filename: '[name].bundle.js',
-      path: path.resolve(__dirname, 'dist'), // Outputs into /dist
+      path: path.resolve(__dirname, 'dist'),
     },
     plugins: [
-      // Generate the HTML file
       new HtmlWebpackPlugin({
-        template: './client/src/index.html',  // Updated to point to client/src/index.html
+        template: './client/src/index.html',  // Check if index.html is in client/src
         title: 'JATE',
       }),
-      // Inject the custom service worker
       new InjectManifest({
-        swSrc: './client/src-sw.js',  // Service worker location
-        swDest: 'src-sw.js',  // Output the service worker in the dist folder
+        swSrc: './src-sw.js',  // Adjusted to reflect that src-sw.js is in the root
+        swDest: 'src-sw.js',
       }),
-      // Webpack PWA manifest configuration
       new WebpackPwaManifest({
         fingerprints: false,
         inject: true,
@@ -34,8 +31,8 @@ module.exports = () => {
         description: 'A simple text editor that works offline!',
         background_color: '#225ca3',
         theme_color: '#225ca3',
-        start_url: './',
-        publicPath: './client',
+        start_url: './',  // Adjusted start_url to the root
+        publicPath: './',  // Adjusted publicPath to the root
         icons: [
           {
             src: path.resolve('client/src/images/logo.png'),
@@ -47,12 +44,10 @@ module.exports = () => {
     ],
     module: {
       rules: [
-        // CSS loader for styles
         {
           test: /\.css$/i,
           use: ['style-loader', 'css-loader'],
         },
-        // Babel loader for JavaScript files
         {
           test: /\.m?js$/,
           exclude: /node_modules/,
