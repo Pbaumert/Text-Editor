@@ -43,6 +43,14 @@ module.exports = () => {
         ],
       }),
     ],
+
+    resolve: {
+      alias: {
+        src: path.resolve(__dirname, 'client/src'), 
+      },
+      extensions: ['.js', '.json']
+    },
+    
     module: {
       rules: [
         {
