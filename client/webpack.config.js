@@ -7,8 +7,8 @@ module.exports = () => {
   return {
     mode: 'development', // Development mode
     entry: {
-      main: './src/js/index.js',    // Main entry point
-      install: './src/js/install.js' // For handling PWA install logic
+      main: '.client/src/js/index.js',    // Main entry point
+      install: '.client/src/js/install.js' // For handling PWA install logic
     },
     output: {
       filename: '[name].bundle.js', // Dynamically name bundles
