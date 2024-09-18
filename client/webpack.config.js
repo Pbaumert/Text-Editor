@@ -7,20 +7,21 @@ module.exports = () => {
   return {
     mode: 'development',
     entry: {
-      main: './client/src/js/index.js',   // Check if this path is correct
-      install: './client/src/js/install.js' // Check if this path is correct
+      main: './client/src/js/index.js',
+      install: './client/src/js/install.js'
     },
     output: {
       filename: '[name].bundle.js',
       path: path.resolve(__dirname, 'dist'),
+      publicPath: './',
     },
     plugins: [
       new HtmlWebpackPlugin({
-        template: './client/src/index.html',  // Check if index.html is in client/src
+        template: './client/src/index.html',
         title: 'JATE',
       }),
       new InjectManifest({
-        swSrc: './src-sw.js',  // Adjusted to reflect that src-sw.js is in the root
+        swSrc: './src-sw.js',
         swDest: 'src-sw.js',
       }),
       new WebpackPwaManifest({
@@ -31,8 +32,8 @@ module.exports = () => {
         description: 'A simple text editor that works offline!',
         background_color: '#225ca3',
         theme_color: '#225ca3',
-        start_url: './',  // Adjusted start_url to the root
-        publicPath: './',  // Adjusted publicPath to the root
+        start_url: './',
+        publicPath: './',
         icons: [
           {
             src: path.resolve('client/src/images/logo.png'),
